@@ -10,7 +10,7 @@ If you use our work, please cite our paper:
   year={2024}
 }
 ```
-**StyleAdv: A Usable Privacy Framework Against Facial Recognition with Adversarial Image Editing**<br>
+## **StyleAdv: A Usable Privacy Framework Against Facial Recognition with Adversarial Image Editing**<br>
 Minh-Ha Le and Niklas Carlsson <br>
 
 **Abstract:**
