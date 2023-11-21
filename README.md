@@ -1,6 +1,6 @@
 # StyleAdv Official implementation
 
-If you use our work, please cite our paper:
+If you find this paper useful in your research, please cite our paper:
 
 ```
 @inproceedings{le2024styleadv,
