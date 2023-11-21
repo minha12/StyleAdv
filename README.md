@@ -10,7 +10,7 @@ If you use our work, please cite our paper:
   year={2024}
 }
 ```
-
+**StyleAdv: A Usable Privacy Framework Against Facial Recognition with Adversarial Image Editing**<br>
 ## Abstract
 >In this era of ubiquitous surveillance and online presence, protecting facial privacy has become a critical concern for individuals and society as a whole. Adversarial attacks have emerged as a promising solution to this problem, but current methods are limited in quality or are impractical for sensitive domains such as facial editing.
 >
