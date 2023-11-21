@@ -106,3 +106,8 @@ For those who prefer a local setup, running the Gradio app on your machine is an
 1. **Clone the Repository & Install Dependencies:** See above.
 2. **Run the Gradio App:** Navigate to the directory containing the Gradio app script and run `demo.py` using Python. This will start a local server, and the Gradio interface will be accessible through your web browser.
 3. **Local Interaction:** Experiment with the Gradio app locally, providing inputs and observing the outputs directly on your machine.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
