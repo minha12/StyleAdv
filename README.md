@@ -22,8 +22,8 @@ Our approach is transferable to state-of-the-art facial recognition systems, mak
 
 ## Description
 Todos
-- [ ] Publish the model (by Nov 24, 2023)
-- [ ] Publish attack codes (by Nov 26, 2023)
+- [x] Publish the model (by Nov 24, 2023)
+- [x] Publish attack codes (by Nov 26, 2023)
 - [ ] Publish demo codes (by Nov 30, 2023)
   
 ![StyleAdv's framework](assets/overview.png)
