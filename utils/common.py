@@ -1,11 +1,7 @@
-from argparse import Namespace
 import os
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
-
-from models.StyleGANWrapper import StyleGANWrapper
-import torch
 
 
 
@@ -112,15 +108,3 @@ def get_latents(net, x, is_cars=False):
     if codes.shape[1] == 18 and is_cars:
         codes = codes[:, :16, :]
     return codes
-
-
-def load_model(model_path = "./pretrained_models/stylegan_encoder_decoder.pt"):
-    ckpt = torch.load(model_path, map_location="cpu")
-    opts = ckpt["opts"]
-    opts["is_train"] = False
-    opts["checkpoint_path"] = model_path
-    opts = Namespace(**opts)
-    net = StyleGANWrapper(opts)
-    net.eval()
-    net.cuda()
-    return net
