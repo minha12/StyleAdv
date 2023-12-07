@@ -23,6 +23,13 @@ gdown.download(
     quiet=False,
 )
 
+# Download CurricularFace_Backbone.pth
+gdown.download(
+    google_drive_paths["CurricularFace_Backbone"],
+    "pretrained_models/CurricularFace_Backbone.pth",
+    quiet=False,
+)
+
 # Download facenet.pth
 gdown.download(
     google_drive_paths["facenet"],
