@@ -47,21 +47,6 @@ with gr.Blocks(css=css) as app:
                 value="Guided Adversarial Editing",
                 label="Mode",
             )
-            # use_conditions = gr.Radio(
-            #     [True, False],
-            #     label="Use fine-gained details",
-            #     value=True,
-            # )
-            # outer_loop = gr.Number(
-            #     value=1,
-            #     label="Outer encoding loop",
-            #     precision=0,
-            # )
-            # inner_loop = gr.Number(
-            #     value=1,
-            #     label="Inner encoding loop",
-            #     precision=0,
-            # )
             with gr.Accordion("Options for aversarial editing", open=True):
                 image_files = get_path_list("test_imgs/")
                 image_path_tarid = gr.Dropdown(
@@ -81,13 +66,10 @@ with gr.Blocks(css=css) as app:
             # with gr.Accordion("Options for aversarial editing", open=False):
 
         with gr.Column():
-            # ckpt_input = os.path.join(ckpt_default_dir, ckpt_input)
             id_threshold = gr.Number(0.43, label="Threshold for ID Loss")
             id_lambda_input = gr.Number(2, label="ID Lambda")
             l2_lambda_input = gr.Number(0.01, label="L2 Lambda")
             lr_input = gr.Number(0.05, label="Learning Rate")
-            # n_batch = gr.Number(1, label="Number of batch", precision=0)
-            # batch_size = gr.Number(1, label="Batch size", precision=0)
             id_loss_model = gr.CheckboxGroup(
                 choices=["ir152", "irse50", "mobile_face", "facenet", "cur_face"],
                 label="Attacker Model",
@@ -114,8 +96,6 @@ with gr.Blocks(css=css) as app:
             id_lambda_input,
             id_loss_model,
             id_eval_model,
-            # n_batch,
-            # batch_size,
         ],
         outputs=result_image_output,
     )
