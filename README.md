@@ -23,10 +23,6 @@ This paper presents a novel adversarial image editing framework called StyleAdv,
 Our approach is transferable to state-of-the-art facial recognition systems, making it a versatile tool for privacy protection. In addition, we provide a user-friendly interface with multiple editing options to help users create effective adversarial images. Extensive experiments are used to provide insights and demonstrate that StyleAdv outperforms state-of-the-art methods in terms of both attack success rate and image quality. By providing a versatile tool for generating high-quality adversarial samples, StyleAdv can be used both to enhance individual users' privacy and to stimulate advances in adversarial attack and defense research.
 
 ## Description
-Todos
-- [x] Publish the model (by Nov 24, 2023)
-- [x] Publish attack codes (by Nov 26, 2023)
-- [ ] Publish demo codes (by Nov 30, 2023)
   
 ![StyleAdv's framework](assets/overview.png)
 
