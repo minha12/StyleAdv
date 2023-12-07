@@ -13,61 +13,33 @@ google_drive_paths = {
 }
 
 
+def download_model(model_name, destination):
+    if not os.path.isfile(destination):
+        print(f"Downloading {model_name}...")
+        gdown.download(google_drive_paths[model_name], destination, quiet=False)
+    else:
+        print(f"{model_name} already exists. Skipping download.")
+
+
+# Ensure the directory for pretrained models exists
 if not os.path.isdir("./pretrained_models/"):
     os.makedirs("./pretrained_models/")
 
-# StyleGAN2 encode/decode
-gdown.download(
-    google_drive_paths["stylegan_encoder_decoder"],
-    "pretrained_models/stylegan_encoder_decoder.pt",
-    quiet=False,
+# Download each model if it doesn't already exist
+download_model(
+    "stylegan_encoder_decoder", "pretrained_models/stylegan_encoder_decoder.pt"
 )
-
-# Download CurricularFace_Backbone.pth
-gdown.download(
-    google_drive_paths["CurricularFace_Backbone"],
-    "pretrained_models/CurricularFace_Backbone.pth",
-    quiet=False,
+download_model(
+    "CurricularFace_Backbone", "pretrained_models/CurricularFace_Backbone.pth"
 )
-
-# Download facenet.pth
-gdown.download(
-    google_drive_paths["facenet"],
-    "pretrained_models/facenet.pth",
-    quiet=False,
+download_model("facenet", "pretrained_models/facenet.pth")
+download_model("ir152", "pretrained_models/ir152.pth")
+download_model("irse50", "pretrained_models/irse50.pth")
+download_model("mobile_face", "pretrained_models/mobile_face.pth")
+download_model(
+    "mmod_human_face_detector", "pretrained_models/mmod_human_face_detector.dat"
 )
-
-# Download ir152.pth
-gdown.download(
-    google_drive_paths["ir152"],
-    "pretrained_models/ir152.pth",
-    quiet=False,
-)
-
-# Download irse50.pth
-gdown.download(
-    google_drive_paths["irse50"],
-    "pretrained_models/irse50.pth",
-    quiet=False,
-)
-
-# Download mobile_face.pth
-gdown.download(
-    google_drive_paths["mobile_face"],
-    "pretrained_models/mobile_face.pth",
-    quiet=False,
-)
-
-# Download mmod_human_face_detector.dat
-gdown.download(
-    google_drive_paths["mmod_human_face_detector"],
-    "pretrained_models/mmod_human_face_detector.dat",
-    quiet=False,
-)
-
-# Download shape_predictor_68_face_landmarks.dat
-gdown.download(
-    google_drive_paths["shape_predictor_68_face_landmarks"],
+download_model(
+    "shape_predictor_68_face_landmarks",
     "pretrained_models/shape_predictor_68_face_landmarks.dat",
-    quiet=False,
 )
