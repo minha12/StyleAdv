@@ -1,5 +1,7 @@
 # StyleAdv Official implementation
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TxJP_xsfu48ZNm-fvbx-_rQj72BpkjJf?usp=sharing)
+
 If you find this paper useful in your research, please cite our paper:
 
 ```
