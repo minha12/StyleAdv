@@ -48,7 +48,6 @@ def residual_attack(
         output = torch.nn.functional.interpolate(
             output, size=(256, 256), mode="bilinear"
         )
-
         # Compute loss
         loss = (
             lpips(output, x)
