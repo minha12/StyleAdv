@@ -1,3 +1,7 @@
 pretrained_models/
 results/
 test_imgs/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
