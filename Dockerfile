@@ -47,9 +47,9 @@ WORKDIR /app/
 # Run the script to download models
 RUN python /app/utils/download_models.py
 
-# # Expose the port on which Gradio runs (usually 7860)
-# EXPOSE 7860
+# Expose the port on which Gradio runs (usually 7860)
+EXPOSE 7860
 
-# # Set the command to run Gradio app
-# ENTRYPOINT ["python", "demo.py"]
+# Set the command to run Gradio app
+ENTRYPOINT ["python", "demo.py"]
 
