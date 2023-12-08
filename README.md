@@ -30,11 +30,8 @@ This repository hosts the "StyleAdv" project, directly linked to our research pa
 
 For practical demonstration, we provide a user-friendly demo in two formats: a Google Colab notebook and a local application using Gradio. Both platforms offer an interactive experience, allowing users to experiment with our adversarial editing techniques. The repository is showcasing the effectiveness of StyleAdv in countering facial recognition systems while being accessible to a wide audience.
 
-### Security/Privacy Issues and Ethical Concerns
-StyleAdv is designed to protect privacy against facial recognition using image editing. While our intended use case is to help regular people avoid being tracked on social media, we acknowledge that the tool also can be misused, including by criminals trying to hide from law enforcements, for example.  When realizing our tool, we ask users to use the tools responsibly. Regardless of use case, we believe that it is important to give everyone fair access to new technologies such as these and help encourage further technical developments.  By giving easy-to-use access to our tool, we aim to make sure it is accessible to a broad audience, not only those proficient in the underlying techniques.  We believe that everybody’s privacy must be respected, and that everybody should be in control of his or her own images.
-
 ## Basic Requirements
-- Ubuntu 18.04
+- Ubuntu 20.04
 - Pytorch 1.7.1
 - Cuda Toolkit 11.2.2
 
@@ -63,13 +60,19 @@ For the evaluation of adversarial attacks using StyleGAN2, consider these time a
 
 ## Environment & setups
 
+To facilitate an easy and accessible demonstration of our StyleAdv framework, we offer three options. You can choose the one that best suits your needs and technical comfort:
 
-### Accessibility
-Access via GitHub repository:
-https://github.com/minha12/StyleAdv.git
+### Option 1: Google Colab (Recommended for Ease of Use)
+Google Colab provides a user-friendly way to experience StyleAdv without the need for local software installations. Follow these steps to get started:
 
-### Installations
-We recommend to set up the virtual environment by Mini Conda:
+1. **Access the Notebook:** Click on the provided link to open the Jupyter notebook in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TxJP_xsfu48ZNm-fvbx-_rQj72BpkjJf?usp=sharing).
+2. **Run the Notebook:** Follow the instructions within the notebook to execute the code cells. Google Colab provides an interactive environment, so you can easily run and modify the code.
+3. **Explore Options:** Within the Colab notebook, you can change the options. This intuitive interface allows you to interact with StyleAdv, test different inputs, and see the results in real-time.
+4. **No Installation Needed:** Since everything runs in the cloud, you don't need to install any software on your device.
+
+### Option 2: Run Gradio app locally with conda environment
+
+1. We recommend to set up the virtual environment by Mini Conda:
 
 ```
 git clone https://github.com/minha12/StyleAdv.git
@@ -82,32 +85,58 @@ sudo update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 -
 ```
 
 
-### Special requirements for Nvidia RTX 30 series
+#### Special requirements for Nvidia RTX 30 series
 
 - Install Cuda Toolkit 11.2.2
 - Pytorch 1.7.1:
 ```
 pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
 ```
-
-## Demo Instructions for StyleAdv
-
-To facilitate an easy and accessible demonstration of our StyleAdv framework, we offer two distinct options. You can choose the one that best suits your needs and technical comfort:
-
-### Option 1: Google Colab (Recommended for Ease of Use)
-Google Colab provides a user-friendly way to experience StyleAdv without the need for local software installations. Follow these steps to get started:
-
-1. **Access the Notebook:** Click on the provided link to open the Jupyter notebook in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TxJP_xsfu48ZNm-fvbx-_rQj72BpkjJf?usp=sharing).
-2. **Run the Notebook:** Follow the instructions within the notebook to execute the code cells. Google Colab provides an interactive environment, so you can easily run and modify the code.
-3. **Explore Options:** Within the Colab notebook, you can change the options. This intuitive interface allows you to interact with StyleAdv, test different inputs, and see the results in real-time.
-4. **No Installation Needed:** Since everything runs in the cloud, you don't need to install any software on your device.
-
-### Option 2: Run Gradio App Locally
-For those who prefer a local setup, running the Gradio app on your machine is an excellent choice. Here’s how to do it:
-
-1. **Clone the Repository & Install Dependencies:** See above.
 2. **Run the Gradio App:** Navigate to the directory containing the Gradio app script and run `demo.py` using Python. This will start a local server, and the Gradio interface will be accessible through your web browser.
 3. **Local Interaction:** Experiment with the Gradio app locally, providing inputs and observing the outputs directly on your machine.
+
+### Option 3: Run Gradio App Locally Using Docker
+
+**Prerequisites:**
+- Docker installed on your machine.
+- NVIDIA GPU with the NVIDIA Container Toolkit (for GPU support).
+
+#### Step 1: Clone the Repository
+- Clone the repository containing the Gradio app and Dockerfile to your local machine.
+
+#### Step 2: Build the Docker Image
+- Open a terminal or command prompt.
+- Navigate to the directory containing the Dockerfile.
+- Run the following command to build the Docker image:
+```
+docker build -t styleadv_docker .
+```
+This command builds a Docker image named `styleadv_docker` from the Dockerfile in the current directory.
+
+#### Step 3: Run the Docker Container
+- Once the image is built, you can run the container with the following command:
+```
+docker run -d --gpus all -p 7860:7860 styleadv_docker
+```
+This command runs the container in detached mode (`-d`), enables GPU access (`--gpus all`), and maps port `7860` of the container to port `7860` on your host machine.
+
+#### Step 4: Access the Gradio App
+- Open a web browser on your local machine.
+- Navigate to `http://localhost:7860` to access the Gradio interface.
+
+#### Step 5: Stop the Docker Container
+- If you need to stop the running Docker container, first find the container ID using:
+  ```
+  docker ps
+  ```
+- Then stop the container using the following command:
+  ```
+  docker stop [container_id]
+  ```
+  Replace `[container_id]` with the actual ID of your container.
+
+### Security/Privacy Issues and Ethical Concerns
+StyleAdv is designed to protect privacy against facial recognition using image editing. While our intended use case is to help regular people avoid being tracked on social media, we acknowledge that the tool also can be misused, including by criminals trying to hide from law enforcements, for example.  When realizing our tool, we ask users to use the tools responsibly. Regardless of use case, we believe that it is important to give everyone fair access to new technologies such as these and help encourage further technical developments.  By giving easy-to-use access to our tool, we aim to make sure it is accessible to a broad audience, not only those proficient in the underlying techniques.  We believe that everybody’s privacy must be respected, and that everybody should be in control of his or her own images.
 
 ## License
 
