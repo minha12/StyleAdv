@@ -65,7 +65,7 @@ To facilitate an easy and accessible demonstration of our StyleAdv framework, we
 ### Option 1: Google Colab (Recommended for Ease of Use)
 Google Colab provides a user-friendly way to experience StyleAdv without the need for local software installations. Follow these steps to get started:
 
-1. **Access the Notebook:** Click on the provided link to open the Jupyter notebook in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TxJP_xsfu48ZNm-fvbx-_rQj72BpkjJf?usp=sharing).
+1. **Access the Notebook:** Click on the provided link to open the Jupyter notebook in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TxJP_xsfu48ZNm-fvbx-_rQj72BpkjJf?usp=sharing)
 2. **Run the Notebook:** Follow the instructions within the notebook to execute the code cells. Google Colab provides an interactive environment, so you can easily run and modify the code.
 3. **Explore Options:** Within the Colab notebook, you can change the options. This intuitive interface allows you to interact with StyleAdv, test different inputs, and see the results in real-time.
 4. **No Installation Needed:** Since everything runs in the cloud, you don't need to install any software on your device.
