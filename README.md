@@ -95,7 +95,7 @@ pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f ht
 2. **Run the Gradio App:** Navigate to the directory containing the Gradio app script and run `demo.py` using Python. This will start a local server, and the Gradio interface will be accessible through your web browser.
 3. **Local Interaction:** Experiment with the Gradio app locally, providing inputs and observing the outputs directly on your machine.
 
-### Option 3: Run Gradio App Locally Using Docker
+### Option 3: Run Gradio app locally using Docker
 
 **Prerequisites:**
 - Docker installed on your machine.
