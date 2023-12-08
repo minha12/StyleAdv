@@ -135,7 +135,27 @@ This command runs the container in detached mode (`-d`), enables GPU access (`--
   ```
   Replace `[container_id]` with the actual ID of your container.
 
-### Security/Privacy Issues and Ethical Concerns
+## Important Note: Parameter Choices for Reproducing Results
+
+The choice of parameters is crucial for accurately reproducing the results of the attacks. Pay special attention to the following parameters:
+
+1. **ID Threshold (`id_threshold`)**: 
+   - This is the threshold of the victim model. 
+   - A lower `id_threshold` makes it easier to attack but may also reduce the attack's effectiveness.
+
+2. **ID Lambda (`id_lambda`)**: 
+   - For "Guided Adversarial Editing", `id_lambda` should be in the range [1, 10], with a default of 2.
+   - For "Residual Attack", it should be in the range [0.01, 0.2], with a default of 0.1.
+
+3. **Learning Rate (`lr`)**: 
+   - The default value is 0.05 for "Guided Adversarial Editing".
+   - For "Residual Attack", the default learning rate is 0.005.
+   - Note that both attacks are highly sensitive to changes in the learning rate.
+
+Adjusting these parameters can significantly impact the effectiveness and efficiency of the attacks. It's recommended to experiment with different values within the suggested ranges to find the optimal settings for your specific scenario.
+
+
+## Security/Privacy Issues and Ethical Concerns
 StyleAdv is designed to protect privacy against facial recognition using image editing. While our intended use case is to help regular people avoid being tracked on social media, we acknowledge that the tool also can be misused, including by criminals trying to hide from law enforcements, for example.  When realizing our tool, we ask users to use the tools responsibly. Regardless of use case, we believe that it is important to give everyone fair access to new technologies such as these and help encourage further technical developments.  By giving easy-to-use access to our tool, we aim to make sure it is accessible to a broad audience, not only those proficient in the underlying techniques.  We believe that everybody’s privacy must be respected, and that everybody should be in control of his or her own images.
 
 ## License
