@@ -77,7 +77,7 @@ Google Colab provides a user-friendly way to experience StyleAdv without the nee
 ```
 git clone https://github.com/minha12/StyleAdv.git
 cd StyleAdv
-conda env update -n styleadv --file ./requirements.yaml
+conda env create -n styleadv --file ./requirements.yaml
 pip install --upgrade --no-cache-dir gdown
 wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
 sudo unzip ninja-linux.zip -d /usr/local/bin/
