@@ -100,4 +100,4 @@ with gr.Blocks(css=css) as app:
         outputs=result_image_output,
     )
 
-app.launch()
+app.launch(server_name="0.0.0.0")
