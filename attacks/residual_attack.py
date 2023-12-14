@@ -21,7 +21,6 @@ def residual_attack(
     id_loss = IDLoss(id_loss_model)
     evaluator = IDLoss(id_eval_model)
     lpips = LPIPS()
-    mse_loss = torch.nn.MSELoss()
     # Initialize perturbed_res with zeros
     perturbed_res = res.clone().to(net.opts.device)
     perturbed_res.requires_grad = True
@@ -44,7 +43,6 @@ def residual_attack(
             randomize_noise=False,
             return_latents=True,
         )
-        # print(output.requires_grad)
         output = torch.nn.functional.interpolate(
             output, size=(256, 256), mode="bilinear"
         )
@@ -58,7 +56,5 @@ def residual_attack(
         loss.backward(retain_graph=True)
         optimizer.step()
         optimizer.zero_grad()
-        # scheduler.step()
         id_dist_to_src = evaluator(output, x.cuda())[0]
-        print(id_dist_to_src)
     return output, perturbed_res

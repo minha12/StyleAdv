@@ -87,4 +87,7 @@ uvicorn==0.24.0.post1
 wcwidth==0.2.12
 websockets==11.0.3
 zipp==3.17.0
-
+seaborn
+adversarial-robustness-toolbox
+facenet-pytorch
+pytorch_msssim

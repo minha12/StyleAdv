@@ -1,33 +1,33 @@
+import os
 from torch.utils.data import Dataset
 from PIL import Image
 from utils import data_utils
+from utils.align import process_input_image
 
 
-class ImagesDataset(Dataset):
+class ImageDataset(Dataset):
+    def __init__(self, image_folder, return_relative_paths=False, run_align=True):
+        self.root_dir = image_folder
+        self.return_relative_paths = return_relative_paths
+        self.run_align = run_align
+        self.image_paths = sorted(
+            [
+                os.path.join(dp, f)
+                for dp, dn, fn in os.walk(image_folder)
+                for f in fn
+                if f.endswith(("jpg", "png", "jpeg"))
+            ]
+        )
 
-	def __init__(self, source_root, target_root, opts, target_transform=None, source_transform=None):
-		self.source_paths = sorted(data_utils.make_dataset(source_root))
-		self.target_paths = sorted(data_utils.make_dataset(target_root))
-		self.source_transform = source_transform
-		self.target_transform = target_transform
-		self.opts = opts
+    def __len__(self):
+        return len(self.image_paths)
 
-	def __len__(self):
-		return len(self.source_paths)
-
-	def __getitem__(self, index):
-		from_path = self.source_paths[index]
-		from_im = Image.open(from_path)
-		from_im = from_im.convert('RGB')
-
-		to_path = self.target_paths[index]
-		to_im = Image.open(to_path).convert('RGB')
-		if self.target_transform:
-			to_im = self.target_transform(to_im)
-
-		if self.source_transform:
-			from_im = self.source_transform(from_im)
-		else:
-			from_im = to_im
-
-		return from_im, to_im
+    def __getitem__(self, idx):
+        image_path = self.image_paths[idx]
+        processed_image = process_input_image(image_path, self.run_align)
+        if self.return_relative_paths:
+            relative_path = os.path.relpath(image_path, self.root_dir)
+            return processed_image, relative_path
+        else:
+            filename = os.path.basename(image_path)
+            return processed_image, filename

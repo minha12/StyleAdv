@@ -14,14 +14,15 @@ def process_input_image(image_path, run_align=True):
             transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
         ]
     )
-    resize_dims = (256, 256)
 
     original_image = Image.open(image_path)
-    original_image = original_image.convert("RGB")
+    # original_image = original_image.convert("RGB")
     # print("are we aligning? ... ", run_align == True)
     if run_align:
         # print("Aligning image...")
-        predictor = dlib.shape_predictor("./pretrained_models/shape_predictor_68_face_landmarks.dat")
+        predictor = dlib.shape_predictor(
+            "./pretrained_models/shape_predictor_68_face_landmarks.dat"
+        )
 
         try:
             aligned_image = align_face(filepath=image_path, predictor=predictor)
@@ -34,8 +35,7 @@ def process_input_image(image_path, run_align=True):
     else:
         input_image = original_image
 
-    resized_image = input_image.resize(resize_dims)
-    transformed_image = transform(resized_image)
+    transformed_image = transform(input_image)
 
     return transformed_image
 

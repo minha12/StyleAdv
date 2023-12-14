@@ -7,12 +7,11 @@ from tqdm import tqdm
 from criteria.id_loss import EnsembleIdLostMulti as IDLoss
 from criteria.lpips.lpips import LPIPS
 
-# from models.stylegan2_vanila.model import Generator
-
 
 class LatentAttack:
     def __init__(self, model, fr_model=["irse50"], victim_model=["cur_face"]):
-        self.generator = model.eval().cuda()
+        self.model = model
+        self.generator = model.decoder.eval().cuda()
         self.lpips_loss = LPIPS()
         self.victim = IDLoss(victim_model)
         self.id_loss = IDLoss(fr_model)
@@ -23,10 +22,7 @@ class LatentAttack:
         lr_ramp = lr_ramp * min(1, t / rampup)
         return initial_lr * lr_ramp
 
-    def guided_attack(self, latent_src, latent_tar, args, tar_id=None):
-        # print(f" id lambda {args}")
-        # Set default argument values
-
+    def guided_attack(self, latent_src, latent_tar, orig, args, tar_id=None):
         # Send latent to device
         latent_src = latent_src.detach().clone().cuda()
         latent_tar = latent_tar.detach().clone().cuda()
@@ -42,6 +38,12 @@ class LatentAttack:
                 [latent_tar],
                 input_is_latent=True,
                 randomize_noise=False,
+            )
+
+            # calculate the distortion map
+
+            diff = orig - torch.nn.functional.interpolate(
+                torch.clamp(img_src, -1.0, 1.0), size=(256, 256), mode="bilinear"
             )
 
         img_src = img_src.detach()
@@ -101,24 +103,32 @@ class LatentAttack:
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            # if verbo:
-            # pbar.set_description((f"loss: {loss.item():.4f} --- id_loss: {i_loss:.4f}"))
-            id_dist_to_src = self.victim(img_src, img_gen)[0].detach().cpu().numpy()
-            # if i % 5:
-            #     print(
-            #         f"loss: {loss.item():.4f} -- ID loss: {i_loss:.4f}; -- ID eval: {id_dist_to_src:.4f}."
-            #     )
+
+            with torch.no_grad():
+                # Align the distortion map
+                img_gen = torch.nn.functional.interpolate(
+                    torch.clamp(img_gen, -1.0, 1.0), size=(256, 256), mode="bilinear"
+                )
+                diff_aligned = self.model.grid_align(torch.cat((diff, img_gen), 1))
+
+                # Fusion
+                conditions = self.model.residue(diff_aligned)
+                img_gen, _ = self.model.decoder(
+                    [latent],
+                    conditions,
+                    input_is_latent=True,
+                    randomize_noise=False,
+                    return_latents=True,
+                )
+                id_dist_to_src = self.victim(orig, img_gen)[0].detach().cpu().numpy()
             i += 1
-            if i > 100:
-                # return blank image
-                print("Breaking early, not successful")
+            if i > 150:
                 return img_gen, img_src, latent, id_dist_to_src
-        # id_dist_to_tar = (
-        #     self.victim(img_gen, tar_id_img.unsqueeze(0))[0].detach().cpu().numpy()
-        # )
+
+        # print(f"SUCCESS")
         return img_gen, img_src, latent, id_dist_to_src
 
-    def no_guidance_attack(self, args, tar_id=None):
+    def no_guidance_attack(self, orig, args, tar_id=None):
         self.generator.eval()
         mean_latent = self.generator.mean_latent(4096)
 
@@ -126,10 +136,15 @@ class LatentAttack:
             latent_code_init = args.latent.cuda()
 
         with torch.no_grad():
-            img_orig, _ = self.generator(
+            img_src, _ = self.generator(
                 [latent_code_init],
                 input_is_latent=True,
                 randomize_noise=False,
+            )
+            # calculate the distortion map
+
+            diff = orig - torch.nn.functional.interpolate(
+                torch.clamp(img_src, -1.0, 1.0), size=(256, 256), mode="bilinear"
             )
 
         latent = latent_code_init.detach().clone()
@@ -152,9 +167,9 @@ class LatentAttack:
                 randomize_noise=False,
             )
 
-            c_loss = lpips_loss(img_gen, img_orig)
+            c_loss = lpips_loss(img_gen, img_src)
             if args.id_lambda > 0 and tar_id is None:
-                i_loss = self.id_loss(img_gen, img_orig)[0]
+                i_loss = self.id_loss(img_gen, img_src)[0]
             elif args.id_lambda > 0 and tar_id is not None:
                 i_loss = self.id_loss(img_gen, tar_id)[0]
             else:
@@ -170,18 +185,33 @@ class LatentAttack:
             loss.backward()
             optimizer.step()
 
-            eval_id = self.victim(img_gen, img_orig)[0]
+            with torch.no_grad():
+                # Align the distortion map
+                img_gen = torch.nn.functional.interpolate(
+                    torch.clamp(img_gen, -1.0, 1.0), size=(256, 256), mode="bilinear"
+                )
+                diff_aligned = self.model.grid_align(torch.cat((diff, img_gen), 1))
+
+                # Fusion
+                conditions = self.model.residue(diff_aligned)
+                img_gen, _ = self.model.decoder(
+                    [latent],
+                    conditions,
+                    input_is_latent=True,
+                    randomize_noise=False,
+                    return_latents=True,
+                )
+                eval_id = self.victim(img_gen, img_src)[0]
 
             i += 1
             if i > 150:
-                print("Breaking early, not successful")
-                return img_orig, img_gen, latent
+                return img_src, img_gen, latent
 
-        print(f"total steps: {i}")
+        # print(f"SUCCESS")
         if args.mode == "edit":
-            final_result = torch.cat([img_orig, img_gen])
+            final_result = torch.cat([img_src, img_gen])
         else:
             final_result = img_gen
         if args.return_latent:
-            return img_orig, img_gen, latent
+            return img_src, img_gen, latent
         return final_result

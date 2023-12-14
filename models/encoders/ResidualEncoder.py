@@ -53,9 +53,9 @@ class ResidualEncoder(Module):
         feat3 = self.conv_layer3(feat2)
 
         scale = self.condition_scale3(feat3)
-        print(scale.shape)
+        # print(scale.shape)
         scale = torch.nn.functional.interpolate(scale, size=(64, 64), mode="bilinear")
-        print(scale.shape)
+        # print(scale.shape)
         conditions.append(scale.clone())
         shift = self.condition_shift3(feat3)
         shift = torch.nn.functional.interpolate(shift, size=(64, 64), mode="bilinear")
