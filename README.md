@@ -156,7 +156,7 @@ Adjusting these parameters can significantly impact the effectiveness and effici
 
 # Evaluation Scripts
 
-This documentation provides information on how to run the `StyleAdv` and evaluation scripts.
+We provide information on how to run the `StyleAdv` and evaluation scripts.
 
 ## Running StyleAdv in batch 
 
