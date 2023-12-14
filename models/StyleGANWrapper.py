@@ -44,7 +44,7 @@ class StyleGANWrapper(nn.Module):
 
     def load_weights(self):
         if self.opts.checkpoint_path:
-            print(f"Loading encoder from: {self.opts.checkpoint_path}")
+            # print(f"Loading encoder from: {self.opts.checkpoint_path}")
             ckpt = torch.load(self.opts.checkpoint_path, map_location="cpu")
             self.encoder.load_state_dict(get_keys(ckpt, "encoder"), strict=True)
             self.decoder.load_state_dict(get_keys(ckpt, "decoder"), strict=True)
