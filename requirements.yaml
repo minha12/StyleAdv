@@ -17,3 +17,7 @@ dependencies:
   - pip:
     - gradio
     - gdown
+    - seaborn
+    - adversarial-robustness-toolbox
+    - facenet-pytorch
+    - pytorch_msssim
