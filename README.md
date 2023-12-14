@@ -154,6 +154,31 @@ The choice of parameters is crucial for accurately reproducing the results of th
 
 Adjusting these parameters can significantly impact the effectiveness and efficiency of the attacks. It's recommended to experiment with different values within the suggested ranges to find the optimal settings for your specific scenario.
 
+# Evaluation Scripts
+
+This documentation provides information on how to run the `StyleAdv` and evaluation scripts.
+
+## Running StyleAdv in batch 
+
+To run `StyleAdv` in batch we provide scripts with the following command:
+
+```bash
+python scripts/run_styleadv.py --input_path ./test_imgs/ --output_path ./output --id_loss_model irse50 --id_eval_model mobile_face --id_threshold 0.5
+```
+This mode allows running batch jobs where the input and output are folders. See more arguments by running:
+
+```bash
+python scripts/run_styleadv.py --help
+```
+
+## Running the Evaluation Script
+After running StyleAdv, you can evaluate the successful rate by using the following command:
+
+```bash
+python scripts/eval.py --input_path ./test_imgs/ --output_path ./output/
+```
+
+Please replace `./test_imgs/` and `./output` with your actual input and output paths respectively. The `--id_loss_model`, `--id_eval_model` flag is used to specify the attacker's model, victim model respectively, and `--id_threshold` is used to set the threshold for the evaluation.
 
 ## Security/Privacy Issues and Ethical Concerns
 StyleAdv is designed to protect privacy against facial recognition using image editing. While our intended use case is to help regular people avoid being tracked on social media, we acknowledge that the tool also can be misused, including by criminals trying to hide from law enforcements, for example.  When realizing our tool, we ask users to use the tools responsibly. Regardless of use case, we believe that it is important to give everyone fair access to new technologies such as these and help encourage further technical developments.  By giving easy-to-use access to our tool, we aim to make sure it is accessible to a broad audience, not only those proficient in the underlying techniques.  We believe that everybody’s privacy must be respected, and that everybody should be in control of his or her own images.
