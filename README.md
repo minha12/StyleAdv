@@ -226,7 +226,24 @@ After running StyleAdv, you can evaluate the successful rate by using the follow
 ```bash
 python scripts/eval.py --input_path ./test_imgs/ --output_path ./output/
 ```
+```
+/app# python scripts/eval.py --help
+usage: eval.py [-h] --input_path INPUT_PATH --output_path OUTPUT_PATH
+               [--batch_size BATCH_SIZE] [--num_workers NUM_WORKERS]
 
+Calculate pairwise distances between images.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --input_path INPUT_PATH
+                        Path to the input folder
+  --output_path OUTPUT_PATH
+                        Path to the output folder
+  --batch_size BATCH_SIZE
+                        Batch size for processing images
+  --num_workers NUM_WORKERS
+                        Number of workers for DataLoader
+```
 Please replace `./test_imgs/` and `./output` with your actual input and output paths respectively. The `--id_loss_model`, `--id_eval_model` flag is used to specify the attacker's model, victim model respectively, and `--id_threshold` is used to set the threshold for the evaluation.
 
 ## Security/Privacy Issues and Ethical Concerns
