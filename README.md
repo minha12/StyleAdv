@@ -170,7 +170,56 @@ This mode allows running batch jobs where the input and output are folders. See 
 ```bash
 python scripts/run_styleadv.py --help
 ```
+```
+app# python scripts/run_styleadv.py --help
+usage: run_styleadv.py [-h] --input_path INPUT_PATH [--output_path OUTPUT_PATH]
+                       [--target_image_path TARGET_IMAGE_PATH]
+                       [--app_mode {Residual Attack,Guided Adversarial Editing,No Guidance Adversarial Editing}]
+                       [--id_loss_model ID_LOSS_MODEL [ID_LOSS_MODEL ...]]
+                       [--id_eval_model ID_EVAL_MODEL [ID_EVAL_MODEL ...]]
+                       [--editing_direction EDITING_DIRECTION]
+                       [--edit_degree EDIT_DEGREE] [--lr LR]
+                       [--id_threshold ID_THRESHOLD] [--l2_lambda L2_LAMBDA]
+                       [--id_lambda ID_LAMBDA] [--batch_size BATCH_SIZE]
+                       [--ckpt_input CKPT_INPUT] [--stylegan_size STYLEGAN_SIZE]
+                       [--lr_rampup LR_RAMPUP] [--mode {edit,other_modes}]
+                       [--truncation TRUNCATION] [--seed_value SEED_VALUE]
+                       [--return_latent] [--demo] [--align_image]
 
+Run the styleadv_run function with options
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --input_path INPUT_PATH
+                        Path to the input image
+  --output_path OUTPUT_PATH
+                        Path to the directory of output image
+  --target_image_path TARGET_IMAGE_PATH
+                        Path to the target image
+  --app_mode {Residual Attack,Guided Adversarial Editing,No Guidance Adversarial Editing}
+  --id_loss_model ID_LOSS_MODEL [ID_LOSS_MODEL ...]
+                        ID loss model
+  --id_eval_model ID_EVAL_MODEL [ID_EVAL_MODEL ...]
+                        ID evaluation model
+  --editing_direction EDITING_DIRECTION
+                        Editing direction for guided editing
+  --edit_degree EDIT_DEGREE
+                        Degree of editing
+  --lr LR               Learning rate
+  --id_threshold ID_THRESHOLD
+                        Threshold for ID loss
+  --l2_lambda L2_LAMBDA
+                        L2 lambda
+  --id_lambda ID_LAMBDA
+                        ID lambda
+  --batch_size BATCH_SIZE
+                        Size of each batch
+  --ckpt_input CKPT_INPUT
+                        Path to the StyleGAN checkpoint
+  --stylegan_size STYLEGAN_SIZE
+                        Resolution of StyleGAN
+  --lr_rampup LR_RAMPUP
+```
 ## Running the Evaluation Script
 After running StyleAdv, you can evaluate the successful rate by using the following command:
 
